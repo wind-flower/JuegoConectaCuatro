@@ -146,11 +146,11 @@ namespace IA_Conecta4
             /// </summary>
             /// <param name="JC">Debe contener 'J' u 'C'</param>
             /// <returns></returns>
-            public bool Gano(char JC)
+            public bool Gano(char CJ)
             {
                 foreach (var linea in lineas)
                 {
-                    if (Estado[linea[0]] == JC && Estado[linea[1]] == JC && Estado[linea[2]] == JC && Estado[linea[3]] == JC)
+                    if (Estado[linea[0]] == CJ && Estado[linea[1]] == CJ && Estado[linea[2]] == CJ && Estado[linea[3]] == CJ)
                         return true;
                 }
                 return false;
@@ -160,21 +160,21 @@ namespace IA_Conecta4
             {
                 foreach (var linea in lineas)
                 {
-                    if (Estado[linea[0]] == 'J' && Estado[linea[1]] == 'J' && Estado[linea[2]] == 'J' && Estado[linea[3]] == 'J')
+                    if (Estado[linea[0]] == 'C' && Estado[linea[1]] == 'C' && Estado[linea[2]] == 'C' && Estado[linea[3]] == 'C')
                     {
                         Valor = 20;
                         return;
                     }
-                    if (Estado[linea[0]] == 'C' && Estado[linea[1]] == 'C' && Estado[linea[2]] == 'C' && Estado[linea[3]] == 'C')
+                    if (Estado[linea[0]] == 'J' && Estado[linea[1]] == 'J' && Estado[linea[2]] == 'J' && Estado[linea[3]] == 'J')
                     {
                         Valor = -20;
                         return;
                     }
-                    if (Estado[linea[0]] != 'J' && Estado[linea[1]] != 'J' && Estado[linea[2]] != 'J' && Estado[linea[3]] != 'J')
+                    if (Estado[linea[0]] != 'C' && Estado[linea[1]] != 'C' && Estado[linea[2]] != 'C' && Estado[linea[3]] != 'C')
                     {
                         Valor--;
                     }
-                    if (Estado[linea[0]] != 'C' && Estado[linea[1]] != 'C' && Estado[linea[2]] != 'C' && Estado[linea[3]] != 'C')
+                    if (Estado[linea[0]] != 'J' && Estado[linea[1]] != 'J' && Estado[linea[2]] != 'J' && Estado[linea[3]] != 'J')
                     {
                         Valor++;
                     }
@@ -183,7 +183,7 @@ namespace IA_Conecta4
 
         public override void GenerarHijos(bool esTurnoPC)
         {
-            char c = esTurnoPC ? 'J' : 'C';
+            char c = esTurnoPC ? 'C' : 'J';
             for (int i = 0; i < Estado.Length; i++)
             {
                 if (i <= 34)
@@ -218,7 +218,7 @@ namespace IA_Conecta4
 
         public override bool EsTerminal()
         {
-            return Gano('J') || Gano('C');
+            return Gano('C') || Gano('J');
         }
 
         public override string ToString()
