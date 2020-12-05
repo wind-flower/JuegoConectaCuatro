@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IA_Conecta4
 {
-    class NodoJuego: Nodo
+    class NodoJuego: Algoritmo
     {
         public char[] Estado { get; private set; }
         int[][] lineas;
@@ -181,7 +181,7 @@ namespace IA_Conecta4
                 }
             }
 
-        public override void GenerarHijos(bool esTurnoPC)
+        public override void GenerarFicha(bool esTurnoPC)
         {
             char c = esTurnoPC ? 'C' : 'J';
             for (int i = 0; i < Estado.Length; i++)
@@ -190,33 +190,33 @@ namespace IA_Conecta4
                 {
                     if (Estado[i] == ' ' && Estado[i + 7] != ' ')
                     {
-                        if (Hijos == null)
-                            Hijos = new List<Nodo>();
+                        if (Fichas == null)
+                            Fichas = new List<Algoritmo>();
                         NodoJuego n = new NodoJuego();
                         n.Estado = (char[])Estado.Clone();
                         n.Estado[i] = c;
 
-                        Hijos.Add(n);
+                        Fichas.Add(n);
                     }
                 }
                 else
                 {
                     if (Estado[i] == ' ')
                     {
-                        if (Hijos == null)
-                            Hijos = new List<Nodo>();
+                        if (Fichas == null)
+                            Fichas = new List<Algoritmo>();
 
                         NodoJuego n = new NodoJuego();
                         n.Estado = (char[])Estado.Clone();
                         n.Estado[i] = c;
 
-                        Hijos.Add(n);
+                        Fichas.Add(n);
                     }
                 }
             }
         }
 
-        public override bool EsTerminal()
+        public override bool TerminarJuego()
         {
             return Gano('C') || Gano('J');
         }

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace IA_Conecta4
 {
-    public abstract class Nodo
+    public abstract class Algoritmo
     {
         public int minimax(int profundidad, bool maximizandoJugador)
         {
-            if (profundidad == 0 || EsTerminal())
+            if (profundidad == 0 || TerminarJuego())
             {
                 CalcularValor();
                 return Valor;
             }
             if (maximizandoJugador)
             {
-                GenerarHijos(maximizandoJugador);
+                GenerarFicha(maximizandoJugador);
                 Valor = int.MinValue;
-                foreach (var h in Hijos)
+                foreach (var h in Fichas)
                 {
                     Valor = Math.Max(Valor, h.minimax(profundidad - 1, false));
                 }
@@ -27,9 +27,9 @@ namespace IA_Conecta4
             }
             else
             {
-                GenerarHijos(maximizandoJugador);
+                GenerarFicha(maximizandoJugador);
                 Valor = int.MaxValue;
-                foreach (var h in Hijos)
+                foreach (var h in Fichas)
                 {
                     Valor = Math.Min(Valor, h.minimax(profundidad - 1, true));
                 }
@@ -39,8 +39,8 @@ namespace IA_Conecta4
 
         public int Valor { get; protected set; }
         public abstract void CalcularValor();
-        public List<Nodo> Hijos { get; protected set; }
-        public abstract void GenerarHijos(bool EsTurnoPC);
-        public abstract bool EsTerminal();
+        public List<Algoritmo> Fichas { get; set; }
+        public abstract void GenerarFicha(bool EsTurnoPC);
+        public abstract bool TerminarJuego();
     }
 }
